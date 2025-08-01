@@ -927,10 +927,16 @@
         }
 
         /* Mobile Styles */
-        @media (max-width: 768px) {
-            .nav-links, .auth-buttons {
-                display: none;
-            }
+       @media (max-width: 768px) {
+    .nav-links {
+        display: none; /* or turn into vertical list in a side panel */
+    }
+    
+    .auth-buttons {
+        display: none;
+    }
+}
+
 
             .hamburger {
                 display: block;
@@ -962,6 +968,17 @@
                 text-align: right;
             }
         }
+         .cart-count {
+    background: red;
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -6px;
+    right: -10px;
+}
+
 
         @media (max-width: 480px) {
             .hero {
@@ -1001,7 +1018,10 @@
             .payment-steps li {
                 font-size: 0.9rem;
             }
-        }
+        body {
+    padding-top: 80px; /* match header height */
+}
+}
     </style>
 </head>
 <body>
