@@ -9,44 +9,84 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- ✅ Header -->
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo">Elit<span>Cards</span></a>
-                <ul class="nav-links">
-                    <li><a href="#" class="home-link">Home</a></li>
-                    <li><a href="#" class="products-link">Cards</a></li>
-                    <li><a href="#" class="dashboard-link" style="display:none;">Dashboard</a></li>
-                    <li><a href="#" class="cart-link"><i class="fas fa-shopping-cart cart-icon"></i><span class="cart-count">0</span></a></li>
-                </ul>
-                <div class="auth-buttons">
-                    <button class="login-btn" id="login-btn">Login</button>
-                    <button class="register-btn" id="register-btn">Register</button>
-                </div>
-                <div class="hamburger"><i class="fas fa-bars"></i></div>
-            </nav>
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <a href="#" class="logo">Elit<span>Cards</span></a>
+            <ul class="nav-links">
+                <li><a href="#" class="home-link">Home</a></li>
+                <li><a href="#" class="products-link">Cards</a></li>
+                <li><a href="#" class="dashboard-link">Dashboard</a></li>
+                <li><a href="#" class="cart-link"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="login-btn" id="login-btn">Login</button>
+                <button class="register-btn" id="register-btn">Register</button>
+            </div>
+            <div class="hamburger"><i class="fas fa-bars"></i></div>
+        </nav>
+    </div>
+</header>
+
+<main id="main-content">
+    <section class="hero" id="home-section">
+        <div class="hero-content">
+            <h1>Premium Credit Cards for Your Financial Freedom</h1>
+            <p>Access exclusive credit cards with high limits and premium benefits tailored for global professionals.</p>
+            <button class="cta-btn products-link">Browse Cards</button>
         </div>
-    </header>
+    </section>
 
-    <!-- ✅ Main Content Sections -->
-    <main id="main-content">
-        <section class="hero" id="home-section"> ... </section>
-        <section class="features"> ... </section>
-        <section class="products" id="products-section" style="display:none;"> ... </section>
-        <section class="dashboard" id="dashboard-section" style="display:none;"> ... </section>
-        <section class="cart-page" id="cart-section" style="display:none;"> ... </section>
-    </main>
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose ElitCards</h2>
+            <div class="features-grid">
+                <div class="feature-card"><h3>Secure Transactions</h3><p>Your transactions are encrypted for safety.</p></div>
+                <div class="feature-card"><h3>Global Acceptance</h3><p>Cards work worldwide without limits.</p></div>
+                <div class="feature-card"><h3>Premium Rewards</h3><p>Get cashback, rewards, and exclusive perks.</p></div>
+            </div>
+        </div>
+    </section>
 
-    <!-- ✅ Modals -->
-    <div class="modal-overlay" id="auth-modal"> ... </div>
-    <div class="modal-overlay" id="payment-modal"> ... </div>
-    <div class="modal-overlay" id="success-modal"> ... </div>
+    <section class="products" id="products-section" style="display:none;">
+        <div class="container">
+            <h2 class="section-title">Premium Credit Cards</h2>
+            <div class="products-grid" id="products-grid"></div>
+        </div>
+    </section>
 
-    <!-- ✅ Notification -->
-    <div class="notification" id="notification"></div>
+    <section class="dashboard" id="dashboard-section" style="display:none;">
+        <div class="container">
+            <h2>Your Dashboard</h2>
+            <div class="dashboard-content">Login to view your account information.</div>
+        </div>
+    </section>
 
-    <!-- ✅ External Script -->
-    <script src="main.js"></script>
+    <section class="cart-page" id="cart-section" style="display:none;">
+        <div class="container">
+            <h2>Your Cart</h2>
+            <div id="cart-items"></div>
+            <div id="cart-summary" class="cart-summary"></div>
+        </div>
+    </section>
+</main>
+
+<!-- ✅ Modals -->
+<div class="modal-overlay" id="auth-modal">
+    <div class="modal"><button class="close-modal">&times;</button><h3>Login/Register</h3><form><input type="email" placeholder="Email"><input type="password" placeholder="Password"><button>Submit</button></form></div>
+</div>
+
+<div class="modal-overlay" id="payment-modal">
+    <div class="modal"><button class="close-modal">&times;</button><h3>Checkout</h3><p>Total: <span id="payment-amount">$0</span></p><input type="file"><button>Upload Payment Screenshot</button></div>
+</div>
+
+<div class="modal-overlay" id="success-modal">
+    <div class="modal"><button class="close-modal">&times;</button><h3>Success!</h3><p>Your order has been placed successfully.</p></div>
+</div>
+
+<!-- ✅ Notification -->
+<div class="notification" id="notification"></div>
+
+<script src="main.js"></script>
 </body>
 </html>
