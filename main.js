@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const paymentModal = document.getElementById('payment-modal');
     const successModal = document.getElementById('success-modal');
 
-    // ✅ 20 cards
+    // ✅ 20 cards list
     const products = [
         {id:1,title:"Mastercard Platinum",price:35,image:"images/mastercard_platinum.jpg"},
         {id:2,title:"Visa Infinite",price:50,image:"images/visa_infinite.jpg"},
@@ -34,13 +34,20 @@ document.addEventListener("DOMContentLoaded", () => {
         {id:20,title:"US Bank Altitude Reserve",price:52,image:"images/usbank_altitude_reserve.jpg"}
     ];
 
-    function showSection(name) {
+    // ✅ Persistent cart
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    function saveCart(){ localStorage.setItem('cart', JSON.stringify(cart)); }
+    function updateCartCount(){ document.querySelector('.cart-count').textContent = cart.length; }
+
+    // ✅ Show section
+    function showSection(name){
         Object.values(sections).forEach(s => s.style.display = 'none');
         sections[name].style.display = 'block';
-        window.scrollTo(0, 0);
+        window.scrollTo(0,0);
     }
 
-    function renderProducts() {
+    // ✅ Render products dynamically
+    function renderProducts(){
         productsGrid.innerHTML = '';
         products.forEach(p => {
             productsGrid.innerHTML += `
@@ -53,21 +60,33 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function showModal(modal){ modal.classList.add('active'); }
-    function hideModal(modal){ modal.classList.remove('active'); }
-
-    // ✅ Cart logic
-    let cart = [];
-    function updateCartCount(){ document.querySelector('.cart-count').textContent = cart.length; }
+    // ✅ Render cart with stored products
     function renderCart(){
         const container = document.getElementById('cart-items');
-        container.innerHTML = cart.length ? '' : '<p>Your cart is empty.</p>';
+        if(cart.length===0){ container.innerHTML='<p>Your cart is empty.</p>'; return; }
+        container.innerHTML='';
         cart.forEach(item => {
-            const product = products.find(p => p.id === item.id);
+            const product = products.find(p=>p.id===item.id);
             container.innerHTML += `<div class="cart-item">${product.title} - $${product.price}</div>`;
         });
         updateCartCount();
     }
+
+    // ✅ Modals
+    function showModal(modal){ modal.classList.add('active'); }
+    function hideModal(modal){ modal.classList.remove('active'); }
+    document.addEventListener('click', e => { if(e.target.classList.contains('close-modal')) hideModal(e.target.closest('.modal-overlay')); });
+
+    // ✅ Add-to-cart logic
+    document.addEventListener('click', e => {
+        if(e.target.classList.contains('add-to-cart')){
+            const id = parseInt(e.target.dataset.id);
+            if(!cart.find(i=>i.id===id)){
+                cart.push({id}); saveCart(); updateCartCount();
+                alert('✅ Card added to cart!');
+            } else { alert('⚠️ This card is already in your cart.'); }
+        }
+    });
 
     // ✅ Navigation events
     document.querySelectorAll('.home-link').forEach(el=>el.onclick=e=>{e.preventDefault();showSection('home');});
@@ -75,22 +94,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.dashboard-link').forEach(el=>el.onclick=e=>{e.preventDefault();showSection('dashboard');});
     document.querySelectorAll('.cart-link').forEach(el=>el.onclick=e=>{e.preventDefault();renderCart();showSection('cart');});
 
-    // ✅ Modals
-    document.getElementById('login-btn').onclick = () => showModal(authModal);
-    document.getElementById('register-btn').onclick = () => showModal(authModal);
-    document.addEventListener('click',e=>{ if(e.target.classList.contains('close-modal')) hideModal(e.target.closest('.modal-overlay')); });
-
-    // ✅ Add to cart
-    document.addEventListener('click', e => {
-        if(e.target.classList.contains('add-to-cart')){
-            const id = parseInt(e.target.dataset.id);
-            cart.push({id});
-            updateCartCount();
-            alert('Item added to cart');
-        }
-    });
+    // ✅ Login & Register triggers
+    document.getElementById('login-btn').onclick=()=>showModal(authModal);
+    document.getElementById('register-btn').onclick=()=>showModal(authModal);
 
     // ✅ Initial load
     renderProducts();
+    updateCartCount();
     showSection('home');
 });
